@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>search</title>
+</head>
+<body>
+<div class="search-book-list">
+    <p>検索結果画面</p>
+    <div th:each="book : ${books}">
+        <div class="row">
+            <div class="col">
+                <div class="search-book-title">
+                    <p>タイトル &nbsp;<span th:text="${book.title}"></span></p>
+                </div>
+                <div class="search-book-year">
+                    <p>出版年月日 &nbsp;<span th:text="${#dates.format(book.publicationDate, 'yyyy/MM/dd')}"></span></p>
+                </div>
+                <div class="search-book-author">
+                    <p>著者 &nbsp;<span th:text="${book.author}"></span></p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="search-book-image">
+                    <!-- HTML/Thymeleafで画像を表示する -->
+                    <img th:src="@{../generate/image_1.png}" alt="Generated Image">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+</html>

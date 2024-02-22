@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+<body>
+<div class="login">
+    <div class="main">
+        <form action="my-page.html" th:action="@{/login-to-my-page}" method="post">
+            <div class="to-login">
+                <div class="email">
+                    <label for="email">メールアドレス:</label>
+                    <input type="text" name="email" id="email">
+                </div>
+                <div class="password"><label for="password">パスワード:</label>
+                    <input type="password" name="password" id="password">
+                </div>
+            </div>
+            <button class="btn btn-primary">ログイン</button>
+        </form>
+        <div class="registration-to-user">
+            <div class="to-registration-page">
+                <a href="registration" th:href="@{/to-registration-page}" class="btn btn-secondary">会員登録はこちら</a>
+            </div>
+        </div>
+        <div class="back-to-top">
+            <a href="top.html" th:href="@{/back}" class="btn btn-secondary">戻る</a>
+        </div>
+
+    </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+</body>
+</html>
