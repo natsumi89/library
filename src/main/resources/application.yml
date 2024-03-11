@@ -9,3 +9,5 @@ server:
   servlet:
     context-path: /library
 
+# Spring Securityのログを有効にする
+logging.level.org.springframework.security: DEBUG

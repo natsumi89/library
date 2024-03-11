@@ -11,13 +11,16 @@
 <div class="registration">
     <div class="container custom-container"> <!-- カスタムクラスを追加 -->
         <div class="main">
-            <form action="top" th:action="@{/register-user-information}" method="post">
-                <div class="registration-form">
-                    <div class="row"> <!-- 各項目を行で包む -->
-                        <div class="col-md-6 offset-md-3"> <!-- グリッドで中央寄せ -->
+            <h3 class="display-4">会員登録画面</h3> <!-- タイトルを大きく表示 -->
+            <div class="register-new-member">
+                <form action="top" th:action="@{/register-user-information}" method="post" class="registration-form" th:object="${userForm}">
+                    <div class="register-form-content">
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
                             <div class="last-name">
-                                <label for="lastName">姓</label>
-                                <input type="text" name="lastName" id="lastName">
+                                <label for="lastName" >姓</label>
+                                <div th:errors="*{lastName}" style = "color: red"></div>
+                                <input type="text" name="lastName" id="lastName" class="form-contro,validate[required]" th:field="*{lastName}" placeholder="山田">
                             </div>
                         </div>
                     </div>
@@ -25,7 +28,8 @@
                         <div class="col-md-6 offset-md-3">
                             <div class="firstName">
                                 <label for="firstName">名</label>
-                                <input type="text" name="firstName" id="firstName">
+                                <div th:errors="*{firstName}" style="color:red"></div>
+                                <input type="text" name="firstName" id="firstName" class="form-control validate[required]" th:field="*{firstName}" placeholder="太郎">
                             </div>
                         </div>
                     </div>
@@ -33,7 +37,7 @@
                         <div class="col-md-6 offset-md-3">
                             <div class="birthDate">
                                 <label for="birthDate">生年月日</label>
-                                <input type="date" name="birthDate" id="birthDate">
+                                <input type="date" name="birthDate" id="birthDate" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -41,7 +45,8 @@
                         <div class="col-md-6 offset-md-3">
                             <div class="email">
                                 <label for="email">メールアドレス</label>
-                                <input type="text" name="email" id="email">
+                                <div th:errors="*{email}" style="color:red;"></div>
+                                <input type="text" name="email" id="email" class="form-control validate[required]" th:field="*{email}" placeholder="xxx@sample.com">
                             </div>
                         </div>
                     </div>
@@ -49,17 +54,23 @@
                         <div class="col-md-6 offset-md-3">
                             <div class="password">
                                 <label for="password">パスワード</label>
-                                <input type="password" name="password" id="password">
+                                <input type="password" name="password" id="password" class="form-control">
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 offset-md-3">
-                        <button class="btn btn-primary">登録</button> <!-- ボタンも中央に配置 -->
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <button class="btn btn-primary">登録</button> <!-- ボタンも中央に配置 -->
+                        </div>
                     </div>
-                </div>
-            </form>
+                    </div>
+                </form>
+            </div>
+            <div class="back-to-top">
+                <form action="" th:action="@{/back}" method="get">
+                    <button class="btn btn-secondary">戻る</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>book-detail</title>
+</head>
+<body>
+<div class="book-detail-content-left">
+    <form action="top.html" th:action="@{/to-lend-page}" method="get">
+    <input type="hidden" name="bookId" th:value="${book.bookId}">
+        <input type="hidden" name="userId" th:value="${session.userId}">
+    <h2 class="book" th:text="${book.title}"></h2>
+    <p class="book">
+        <span th:text="${book.publicationDate}"></span>
+    </p>
+    <p class="book-detail-author">
+        <span th:text="${book.author}"></span>
+    </p>
+    <p class="book-detail-genre">
+        <span th:text="${book.genre}"></span>
+    </p>
+    <p class="book-detail-status">
+        <span th:text="${book.status}"></span>
+    </p>
+        <div th:if="${book.status == '貸出可'}" >
+            <button>貸出</button>
+        </div>
+        <div th:unless="${book.status == '貸出可'}">
+            <a href="reservation.html" th:href="@{/to-reservation-page}">予約画面へ</a>
+        </div>
+
+    </form>
+</div>
+<a href="top.html" th:href="@{/top}" class="btn btn-primary">戻る</a>
+</body>
+</html>

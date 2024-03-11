@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>top</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="icon" th:href="@{/img/favicon.ico}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 </head>
@@ -26,7 +27,7 @@
                     <a class="nav-link active" aria-current="page" href="#search">検索</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="#book-all">蔵書</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -34,21 +35,21 @@
                         Dropdown
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#" th:href="@{/to-my-page}">マイページ</a></li>
+                        <li><a class="dropdown-item" href="#" th:href="@{/login}">ログイン</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li><a class="dropdown-item" href="#">お問い合わせ</a></li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled">Disabled</a>
-                </li>
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link disabled">Disabled</a>-->
+<!--                </li>-->
             </ul>
             <ul class="navbar-nav ms-auto">
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <form class="d-flex" role="search" th:action="@{/search}">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="title" name="title">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
                 <li class="nav-item">
@@ -104,15 +105,16 @@
                             </button>
                             <div class="collapse show" id="home-collapse">
                                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                    <li><a href="#"
-                                           class="link-body-emphasis d-inline-flex text-decoration-none rounded">概要</a>
+                                    <li><a href="#recommend-for-this-week"
+                                           class="link-body-emphasis d-inline-flex text-decoration-none rounded">今週のおすすめ</a>
                                     </li>
                                     <li><a href="#"
-                                           class="link-body-emphasis d-inline-flex text-decoration-none rounded">更新</a>
+                                           class="link-body-emphasis d-inline-flex text-decoration-none rounded">人気ランキング</a>
                                     </li>
-                                    <li><a href="#"
-                                           class="link-body-emphasis d-inline-flex text-decoration-none rounded">レポート</a>
+                                    <li><a href="#search"
+                                           class="link-body-emphasis d-inline-flex text-decoration-none rounded">検索</a>
                                     </li>
+
                                 </ul>
                             </div>
                         </li>
@@ -169,19 +171,30 @@
                             </button>
                             <div class="collapse" id="account-collapse">
                                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                    <li><a href="#" th:href="@{/to-login}"
+
+                                    <li><a href="#" th:href="@{/login}"
                                            class="link-body-emphasis d-inline-flex text-decoration-none rounded">ログイン</a>
                                     </li>
-                                    <li><a href="#" th:href="@{/to-registration}"
+                                    <li><a href="#" th:href="@{/to-registration-page}"
                                            class="link-body-emphasis d-inline-flex text-decoration-none rounded">新規会員登録</a>
                                     </li>
-                                    <li><a href="#"
+                                    <li><a href="#" th:href="@{/to-my-page}"
                                            class="link-body-emphasis d-inline-flex text-decoration-none rounded">マイページへ</a>
                                     </li>
                                     <li><a href="#"
                                            class="link-body-emphasis d-inline-flex text-decoration-none rounded">サインアウト</a>
                                     </li>
                                 </ul>
+                            </div>
+                        </li>
+                        <li class="border-top my-2"></li>
+                        <li class="mb-1">
+                            <div th:if="${session.lastName != null}">
+                                <span th:text="'ようこそ!' + ${session.lastName} + 'さん'"></span>
+                                <form action="top.html" th:action="@{/logout}" method="post"><button>ログアウト</button></form>
+                            </div>
+                            <div th:unless="${session.lastName != null}">
+                                <p>ようこそ!ゲストさん</p>
                             </div>
                         </li>
                     </ul>
@@ -196,7 +209,7 @@
                         <div class="row">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title">今週のおすすめ⭐️</h5>
+                                    <h5 class="card-title" id="recommend-for-this-week">今週のおすすめ⭐️</h5>
                                     <p class="card-text">図書広報課より今週のオススメの本３選をご紹介いたします。</p>
                                     <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                                 </div>
@@ -234,6 +247,7 @@
                         </div>
                     </div>
                     <div class="container">
+                        <h3 id="search">検索画面</h3>
                         <form action="search.html" th:action="@{/search}" method="GET">
                             <div class="form-group">
                                 <label for="book-title">題名</label>
@@ -246,17 +260,66 @@
                             <div class="form-group">
                                 <label for="genre">ジャンル</label>
                                 <select class="form-control" id="genre" name="genre">
-                                    <!-- ジャンルのオプションを追加 -->
+                                    <option value="">--ジャンルを選択--</option>
+                                    <option th:each="genre : ${genreList}" th:value="${genre}" th:text="${genre}">Genre</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="author">著者</label>
-                                <select class="form-control" id="author" name="author">
-                                    <!-- 著者のオプションを追加 -->
-                                </select>
+                                <input type="text" class=form-control name="author" id="author">
                             </div>
                             <button type="submit" class="btn btn-primary">本を検索</button>
+
                         </form>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3 class="display-4" id="book-all">蔵書</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <table class="table table-hover table bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>タイトル</th>
+                                        <th>著者</th>
+                                        <th>出版年月日</th>
+                                        <th>ジャンル</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <!-- 書籍リストをループ -->
+                                    <tr th:each="book, iterStat : ${bookList}">
+<!--                                        <th scope="row" th:text="${iterStat.index + 1}"></th>-->
+                                        <td th:text="${book.bookId}"></td>
+                                        <td><a th:href="@{/detail/{book_id}(book_id=${book.bookId})}" th:text="${book.title}"></a></td>
+                                        <td th:text="${book.author}"></td>
+                                        <td th:text="${#dates.format(book.publicationDate, 'yyyy/MM/dd')}"></td>
+                                        <td th:text="${book.genre}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="pagination justify-content-center">
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination">
+                                            <li class="page-item" th:if="${currentPage > 1}">
+                                                <a class="page-link" th:href="@{/top(page=${currentPage - 2})}">Previous</a>
+                                            </li>
+                                            <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}" th:classappend="${currentPage == i}? 'active'">
+                                                <a class="page-link" th:href="@{/top(page=${i - 1})}" th:text="${i}">1</a>
+                                            </li>
+                                            <li class="page-item" th:if="${currentPage < totalPages}">
+                                                <a class="page-link" th:href="@{/top(page=${currentPage})}">Next</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -265,10 +328,6 @@
 </div>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-        <!--                <a class="navbar-brand" href="#">Navbar</a>-->
-        <!--                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
-        <!--                    <span class="navbar-toggler-icon"></span>-->
-        <!--                </button>-->
         <div class="collapse navbar-collapse" id="navbarSupportedContent2">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">

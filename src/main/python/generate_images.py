@@ -1,6 +1,7 @@
 # generate_images.py
 from PIL import Image
 from py4j.java_gateway import JavaGateway
+import os
 
 def generate_images(output_dir, num_images, image_width=50, image_height=60, background_color=(255, 255, 255)):
     try:

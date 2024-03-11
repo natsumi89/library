@@ -51,6 +51,26 @@ public class UserRepository {
         if (usersList.size() == 0) {
             return null;
         }
+        System.out.println("findByEmailAndPassword: " + email + ", " + password);
         return usersList.get(0);
+    }
+
+    public User findByEmail(String email) {
+        String sql = "SELECT user_id,first_name,last_name,is_admin,birth_date,master,email,password FROM users WHERE email=:email";
+        SqlParameterSource param = new MapSqlParameterSource().addValue("email", email);
+        List<User> usersList = template.query(sql, param, USER_ROW_MAPPER);
+        if (usersList.size() == 0) {
+            return null;
+        }
+        System.out.println("findByEmail: " + email);
+        return usersList.get(0);
+    }
+
+    public void delete(Integer userId){
+        String sql = "DELETE FROM users WHERE user_id=:userId";
+
+        SqlParameterSource param = new MapSqlParameterSource().addValue("user_id",userId);
+        template.update(sql,param);
+
     }
 }

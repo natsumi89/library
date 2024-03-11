@@ -23,9 +23,17 @@ public class UserService {
         return userRepository.findAll();
     }
 
+
     public User findByEmailAndPassword(String email, String password) {
         return userRepository.findByEmailAndPassword(email, password);
     }
 
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    public void delete(Integer userId) {
+        userRepository.delete(userId);
+    }
 
 }
